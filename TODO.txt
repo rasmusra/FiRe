@@ -1,0 +1,12 @@
+DONE:
+
+DOING:
+
+TODO:
+- give list of wildcards for what filetypes should be copied
+- copy and always replace all existing files as optional method
+- clean whole destdir as optional method
+- copy many srcdirs to their respective set of destdirs
+- setup rolling logs
+- use fudgefactor for comparing dates of files, fudgefactor given in config
+- find good names for logfiles

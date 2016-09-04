@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>setup (TestRollingBackup)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/full/tc_rolling_backup.rb, line 15</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">setup</span>
+    
+    <span class="ruby-constant">ResourceLocator</span>.<span class="ruby-identifier">init</span>
+    <span class="ruby-constant">Utils</span>.<span class="ruby-identifier">setupDirs</span>   
+     
+    <span class="ruby-comment cmt"># setup config for our run</span>
+    <span class="ruby-ivar">@backupDirFlag</span> = <span class="ruby-value str">&quot;rolling backup&quot;</span> 
+    <span class="ruby-ivar">@history</span> = <span class="ruby-value">2</span>
+    <span class="ruby-ivar">@destination</span> = <span class="ruby-value str">&quot;test/data/dest&quot;</span>
+    <span class="ruby-ivar">@rollingBackup</span> = {
+      <span class="ruby-value str">&quot;worker&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;ROLLING_BACKUP&quot;</span>,
+      <span class="ruby-value str">&quot;parameters&quot;</span> =<span class="ruby-operator">&gt;</span> {
+        <span class="ruby-value str">&quot;history&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@history</span>, 
+        <span class="ruby-value str">&quot;destination&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@destination</span>
+      }
+    }
+    <span class="ruby-ivar">@cfg</span> = { <span class="ruby-value str">&quot;jobs&quot;</span> =<span class="ruby-operator">&gt;</span> [ <span class="ruby-ivar">@rollingBackup</span> ] }
+   
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

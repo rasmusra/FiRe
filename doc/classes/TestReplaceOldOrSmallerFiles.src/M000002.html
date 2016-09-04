@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>setup (TestReplaceOldOrSmallerFiles)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/full/tc_replace_old_or_smaller_files.rb, line 9</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">setup</span>
+    
+    <span class="ruby-comment cmt"># remove any old stuff and setup new clean structure</span>
+    <span class="ruby-constant">Utils</span>.<span class="ruby-identifier">setupDirs</span>
+     
+    <span class="ruby-comment cmt"># setup config for our run</span>
+    <span class="ruby-ivar">@source</span> = <span class="ruby-value str">&quot;test/data/src&quot;</span>
+    <span class="ruby-ivar">@destination</span> = <span class="ruby-value str">&quot;test/data/dest&quot;</span>
+    <span class="ruby-ivar">@replaceOldOrSmaller</span> = 
+    {
+      <span class="ruby-value str">&quot;worker&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;REPLACE_OLD_OR_SMALLER_FILES&quot;</span>,
+      <span class="ruby-value str">&quot;parameters&quot;</span> =<span class="ruby-operator">&gt;</span> 
+      {
+        <span class="ruby-value str">&quot;source&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@source</span>, 
+        <span class="ruby-value str">&quot;destination&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@destination</span> 
+      }
+    }
+    <span class="ruby-ivar">@cfg</span> = { <span class="ruby-value str">&quot;jobs&quot;</span> =<span class="ruby-operator">&gt;</span> [ <span class="ruby-ivar">@replaceOldOrSmaller</span> ] }
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

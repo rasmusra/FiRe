@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_shouldNotCopyFilesInIgnoreList (TestReplaceOldOrSmallerFiles)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/full/tc_replace_old_or_smaller_files.rb, line 101</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_shouldNotCopyFilesInIgnoreList</span>
+    
+    <span class="ruby-comment cmt"># use fake filesystem that counts filesystem-calls</span>
+    <span class="ruby-constant">ResourceLocator</span>.<span class="ruby-identifier">setFilesystem</span>(<span class="ruby-constant">FilesysWithCounters</span>.<span class="ruby-identifier">new</span>)
+
+    <span class="ruby-comment cmt"># setup srcfiles</span>
+    <span class="ruby-constant">Utils</span>.<span class="ruby-identifier">setupFile</span>(<span class="ruby-constant">Utils</span>.<span class="ruby-identifier">fullSrcName</span>(<span class="ruby-ivar">@cfg</span>, <span class="ruby-value str">&quot;sub/ignore.txt&quot;</span>))
+    <span class="ruby-constant">Utils</span>.<span class="ruby-identifier">setupFile</span>(<span class="ruby-constant">Utils</span>.<span class="ruby-identifier">fullSrcName</span>(<span class="ruby-ivar">@cfg</span>, <span class="ruby-value str">&quot;file.ign&quot;</span>))
+    <span class="ruby-constant">Utils</span>.<span class="ruby-identifier">setupFile</span>(<span class="ruby-constant">Utils</span>.<span class="ruby-identifier">fullSrcName</span>(<span class="ruby-ivar">@cfg</span>, <span class="ruby-value str">&quot;skippedDir/file.txt&quot;</span>))
+    <span class="ruby-constant">Utils</span>.<span class="ruby-identifier">setupFile</span>(<span class="ruby-constant">Utils</span>.<span class="ruby-identifier">fullSrcName</span>(<span class="ruby-ivar">@cfg</span>, <span class="ruby-value str">&quot;sub/file.txt&quot;</span>))
+    
+    <span class="ruby-comment cmt"># add to config what items should be ignored</span>
+    <span class="ruby-identifier">params</span> = <span class="ruby-ivar">@cfg</span>[<span class="ruby-value str">&quot;jobs&quot;</span>][<span class="ruby-value">0</span>][<span class="ruby-value str">&quot;parameters&quot;</span>]
+    <span class="ruby-identifier">params</span>[<span class="ruby-value str">&quot;ignore&quot;</span>] = <span class="ruby-value str">&quot;*.ign,ignor*.*,skipped*&quot;</span>
+    
+    <span class="ruby-comment cmt"># run. cannot test from outermost function since we are mocking filesystem</span>
+    <span class="ruby-constant">ReplaceOldOrSmallerFiles</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>).<span class="ruby-identifier">execute</span>
+
+    <span class="ruby-comment cmt"># verify</span>
+    <span class="ruby-identifier">assert_equal</span>(<span class="ruby-value">1</span>, <span class="ruby-constant">FiRe</span><span class="ruby-operator">::</span><span class="ruby-identifier">filesys</span>.<span class="ruby-identifier">count</span>[<span class="ruby-identifier">:cp</span>], <span class="ruby-value str">&quot;only one file is not ignored but that was not what was copied.&quot;</span>)
+      
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_shouldMoveOldFileToTrashfolder (TestCleanupOldFiles)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/full/tc_cleanup_old_files.rb, line 28</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_shouldMoveOldFileToTrashfolder</span>
+    
+    <span class="ruby-comment cmt"># setup destdir with a small textfile that's not existing in srcdir</span>
+    <span class="ruby-identifier">oldfile</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-node">&quot;#{@destination}/sub/oldfile.txt&quot;</span>)
+    <span class="ruby-identifier">expectedTrashedFile</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-value str">&quot;test/data/dest/trashed/sub/oldfile.txt&quot;</span>)
+    <span class="ruby-constant">Utils</span>.<span class="ruby-identifier">setupFile</span>(<span class="ruby-identifier">oldfile</span>)
+    
+    <span class="ruby-comment cmt"># run</span>
+    <span class="ruby-constant">Utils</span>.<span class="ruby-identifier">runFiRe</span>(<span class="ruby-ivar">@cfg</span>)
+    
+    <span class="ruby-comment cmt"># verify</span>
+    <span class="ruby-identifier">assert</span>(<span class="ruby-operator">!</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">oldfile</span>), <span class="ruby-node">&quot;file #{oldfile} was not removed&quot;</span>)
+    <span class="ruby-identifier">assert</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">expectedTrashedFile</span>), <span class="ruby-node">&quot;file #{oldfile} was not removed&quot;</span>)
+    
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

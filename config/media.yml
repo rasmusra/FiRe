@@ -1,0 +1,38 @@
+purpose    	: runtime configuration for FiRe
+description	: configures how to execute FiRe
+
+# this configuration shows how filereplicator might be used 
+# for different backup-requirements
+
+jobs:
+
+- worker: replace_old_or_smaller_files
+  parameters:
+    source     : "/my/mp3"
+    destination: "/backup/mp3"
+
+- worker: cleanup_old_files
+  parameters:
+    source      : "/my/mp3"
+    destination : "/backup/mp3"
+
+- worker: rolling_backup
+  parameters:
+    destination : "/backup/office"
+	  history     : 3
+
+- worker: replace_old_or_smaller_files
+  parameters:
+    source      : "/my/office"
+    destination : "/backup/office"
+
+- worker: replace_old_or_smaller_files
+  parameters:
+    source      : "/my/movies"
+    destination : "/backup/movies"
+
+- worker: replace_old_or_smaller_files
+  parameters:
+    source      : "/my/pictures"
+    destination : "/backup/pictures"
+...

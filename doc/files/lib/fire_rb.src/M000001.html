@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>main (lib/fire.rb)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/fire.rb, line 33</span>
+<span class="ruby-keyword kw">def</span> <span class="ruby-identifier">main</span>
+  <span class="ruby-keyword kw">begin</span>  
+  
+    <span class="ruby-constant">ResourceLocator</span>.<span class="ruby-identifier">setLog</span>(<span class="ruby-constant">Logger</span>[<span class="ruby-value str">&quot;log&quot;</span>])
+    <span class="ruby-constant">FiRe</span><span class="ruby-operator">::</span><span class="ruby-identifier">log</span>.<span class="ruby-identifier">info</span> <span class="ruby-value str">&quot;Starting up!&quot;</span>
+  
+    <span class="ruby-identifier">configdata</span> = <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">flags</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">to_s</span>)) 
+    
+    <span class="ruby-identifier">configdata</span>[<span class="ruby-value str">&quot;jobs&quot;</span>].<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">w</span><span class="ruby-operator">|</span> 
+      <span class="ruby-constant">WorkerFactory</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">w</span>).<span class="ruby-identifier">execute</span>
+    }
+  
+  <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">StandardError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">log</span>.<span class="ruby-identifier">fatal</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">raise</span>
+  <span class="ruby-keyword kw">end</span>
+<span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

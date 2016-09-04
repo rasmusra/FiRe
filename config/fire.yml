@@ -1,0 +1,35 @@
+purpose    	: runtime configuration for FiRe
+description	: configures how to execute FiRe
+
+#
+# To write your own copier. You will have to add a worker-class in the
+# lib/fire/workers library. The worker-class, config-name and the worker's
+# filename must have corresponding names.
+# 
+# Ex: I want to write a new copier that works my way, it will be called MyCopier,
+# So I follow these steps  
+#	1. place a file tc_my_copier.rb in test/unit-folder, write unittests therein.
+#	2. place a my_copier.rb in lib/fire/workers-folder. You would probably use 
+#		an existing to start off from when implementing.
+#	3. put its name in a configuration file (this file, that is). See the 
+#		workers-list below. The worker-name will be same as filename, my_copier. 
+# 	4. execute fire.rb with the configuration holding your copier, see bin-folder 
+#       for example of start-script
+#
+jobs:
+
+- worker	: replace_old_or_smaller_files
+  parameters:
+	- source      : "test/data/src"
+	  destination : "test/data/dest"
+	  
+- worker	: cleanup_old_files
+  parameters:
+	- source      : "test/data/src"
+	  destination : "test/data/dest"
+
+- worker	: rolling_backup
+  parameters:
+	- destination : "test/data/dest"
+   	  history	  : 7
+...

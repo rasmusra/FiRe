@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_shouldOnlyCountTopmostRollingBackup (TestRollingBackup)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/full/tc_rolling_backup.rb, line 102</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_shouldOnlyCountTopmostRollingBackup</span>
+    
+    <span class="ruby-comment cmt"># use fake filesystem that counts filesystem-calls</span>
+    <span class="ruby-constant">ResourceLocator</span>.<span class="ruby-identifier">setFilesystem</span>(<span class="ruby-constant">FilesysWithCounters</span>.<span class="ruby-identifier">new</span>)
+    
+    <span class="ruby-comment cmt"># setup with full set of backups</span>
+    <span class="ruby-identifier">setupWithOneFile</span>
+    <span class="ruby-identifier">backupnames</span> = [
+      <span class="ruby-node">&quot;#{@backupDirFlag} 2008-07-13 213420&quot;</span>,
+      <span class="ruby-node">&quot;#{@backupDirFlag} 2008-07-13 213421&quot;</span> ]
+    <span class="ruby-constant">Utils</span>.<span class="ruby-identifier">setupFile</span>(<span class="ruby-constant">Utils</span>.<span class="ruby-identifier">fullDestName</span>(<span class="ruby-ivar">@cfg</span>, <span class="ruby-node">&quot;#{backupnames[0]}/#{backupnames[1]}/file.txt&quot;</span>))
+
+    <span class="ruby-comment cmt"># run</span>
+    <span class="ruby-constant">RollingBackup</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@cfg</span>[<span class="ruby-value str">&quot;jobs&quot;</span>][<span class="ruby-value">0</span>][<span class="ruby-value str">&quot;parameters&quot;</span>]).<span class="ruby-identifier">execute</span>
+
+    <span class="ruby-comment cmt"># verify</span>
+    <span class="ruby-identifier">assert_equal</span>(<span class="ruby-value">0</span>, <span class="ruby-constant">FiRe</span><span class="ruby-operator">::</span><span class="ruby-identifier">filesys</span>.<span class="ruby-identifier">count</span>[<span class="ruby-identifier">:rm_rf</span>], <span class="ruby-value str">&quot;did a removal when none should have been removed&quot;</span>)
+    
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

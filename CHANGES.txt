@@ -1,0 +1,36 @@
+0.0.5
+- BUGFIX: now creates the log-directory
+- BUGFIX: windows-paths now parsed correctly
+- workers takes parameter "ignore" with list of wildcards for files that should be ignored
+- logging improved
+- BUGFIX: UNC-paths rejected
+
+0.0.4
+- no need for configuring several destdirs in one job, removed the feature
+- allow to configure several jobs in one configfile
+- possible to keep rolling backups, for instance keep 7 copies but replace the copy made eight days (copies) ago
+
+0.0.3
+- configurable what copy-worker you want to use
+- quack your own copier
+
+0.0.2
+- setup version handling system
+- put configs in yaml instead of cmdline
+
+0.0.1
+- copy all files from srcdir to destdir, given from cmdline   
+- allow from cmdline to copy src to many dests
+- allow relative paths in input args, use currdir as root
+- only copy file if destfile does not exist
+- only copy existing file if destdir is older
+- BUGFIX: always copy files existing but with smaller size
+- BUGFIX: should not call size? if file does not exist
+- BUGFIX: make absolute win-paths validatable
+- write trace to filelog
+- change logging from <srffile destpath> to <time size destpath>
+- gem install package deployed to server
+- move from dest to trash-map if not in src when option -sync given to program
+- register at rubyforge
+- write errors to special error-log
+- document with RDoc

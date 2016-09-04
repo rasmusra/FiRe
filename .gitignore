@@ -1,0 +1,6 @@
+tmp* 
+*lock 
+logs/*.log 
+logs 
+gems 
+test/data/dest/*

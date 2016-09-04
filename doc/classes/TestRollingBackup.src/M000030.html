@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_shouldReplaceOldestRollingBackup (TestRollingBackup)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/full/tc_rolling_backup.rb, line 77</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_shouldReplaceOldestRollingBackup</span>
+    
+    <span class="ruby-comment cmt"># setup with full set of backups</span>
+    <span class="ruby-identifier">setupWithOneFile</span>
+    <span class="ruby-identifier">backupnames</span> = [
+      <span class="ruby-node">&quot;#{@backupDirFlag} 2008-07-13 213410&quot;</span>,
+      <span class="ruby-node">&quot;#{@backupDirFlag} 2008-07-13 213411&quot;</span> ]
+    <span class="ruby-constant">Utils</span>.<span class="ruby-identifier">setupFile</span>(<span class="ruby-constant">Utils</span>.<span class="ruby-identifier">fullDestName</span>(<span class="ruby-ivar">@cfg</span>, <span class="ruby-node">&quot;#{backupnames[0]}/file.txt&quot;</span>))
+    <span class="ruby-constant">Utils</span>.<span class="ruby-identifier">setupFile</span>(<span class="ruby-constant">Utils</span>.<span class="ruby-identifier">fullDestName</span>(<span class="ruby-ivar">@cfg</span>, <span class="ruby-node">&quot;#{backupnames[1]}/file.txt&quot;</span>))
+
+    <span class="ruby-comment cmt"># run</span>
+    <span class="ruby-constant">Utils</span>.<span class="ruby-identifier">runFiRe</span>(<span class="ruby-ivar">@cfg</span>)
+
+    <span class="ruby-comment cmt"># verify</span>
+    <span class="ruby-identifier">count</span> = <span class="ruby-value">0</span>
+    <span class="ruby-constant">Find</span>.<span class="ruby-identifier">find</span>(<span class="ruby-ivar">@destination</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">assertBackupDirMatch</span>(<span class="ruby-identifier">item</span>)
+      <span class="ruby-identifier">assert</span>( <span class="ruby-operator">!</span><span class="ruby-identifier">item</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">backupnames</span>[<span class="ruby-value">0</span>]), <span class="ruby-value str">&quot;did not replace oldest backup&quot;</span>)
+      <span class="ruby-identifier">count</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span> <span class="ruby-keyword kw">if</span> <span class="ruby-constant">FiRe</span><span class="ruby-operator">::</span><span class="ruby-identifier">filesys</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">item</span>)<span class="ruby-operator">==</span><span class="ruby-ivar">@destination</span>
+    }
+    <span class="ruby-identifier">assert_equal</span>(<span class="ruby-ivar">@history</span>, <span class="ruby-identifier">count</span>, <span class="ruby-value str">&quot;strange no. of backupdirs&quot;</span>)
+    
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

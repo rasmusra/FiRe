@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_shouldNotTryToRemoveTrashfolder (TestWorkers)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/unit/tc_workers.rb, line 46</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_shouldNotTryToRemoveTrashfolder</span>
+    
+    <span class="ruby-comment cmt"># setup with trashdir in dest</span>
+    <span class="ruby-identifier">trashDir</span> = <span class="ruby-node">&quot;#{@destination}/trashed&quot;</span>
+    <span class="ruby-constant">FiRe</span><span class="ruby-operator">::</span><span class="ruby-identifier">filesys</span>.<span class="ruby-identifier">addDest</span>(<span class="ruby-identifier">trashDir</span>) 
+    
+    <span class="ruby-comment cmt"># run</span>
+    <span class="ruby-ivar">@target</span>.<span class="ruby-identifier">execute</span>
+    
+    <span class="ruby-comment cmt"># verify by checking what has been removed</span>
+    <span class="ruby-identifier">assert_equal</span>(<span class="ruby-value">0</span>, <span class="ruby-constant">FiRe</span><span class="ruby-operator">::</span><span class="ruby-identifier">filesys</span>.<span class="ruby-identifier">removedFiles</span>.<span class="ruby-identifier">size</span>, <span class="ruby-value str">&quot;hey! what was removed here?&quot;</span>)
+    
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

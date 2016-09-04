@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>execute (RollingBackup)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/workers/rolling_backup.rb, line 24</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">execute</span>
+    
+    <span class="ruby-identifier">newBackup</span> = <span class="ruby-constant">FiRe</span><span class="ruby-operator">::</span><span class="ruby-identifier">filesys</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@destination</span>, <span class="ruby-identifier">createBackupDirName</span>)
+    <span class="ruby-constant">FiRe</span><span class="ruby-operator">::</span><span class="ruby-identifier">filesys</span>.<span class="ruby-identifier">mkpath</span> <span class="ruby-identifier">newBackup</span>
+
+    <span class="ruby-constant">FiRe</span><span class="ruby-operator">::</span><span class="ruby-identifier">filesys</span>.<span class="ruby-identifier">find</span>(<span class="ruby-ivar">@destination</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
+      
+      <span class="ruby-comment cmt"># prune this branch if it should be ignored or if it is a backup-dir</span>
+      <span class="ruby-constant">FiRe</span><span class="ruby-operator">::</span><span class="ruby-identifier">filesys</span>.<span class="ruby-identifier">prune</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ignore?</span>(<span class="ruby-identifier">item</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">backupdirectory?</span>(<span class="ruby-identifier">item</span>)
+      
+      <span class="ruby-comment cmt"># if item is in rootdir then we should move it. This will make all items </span>
+      <span class="ruby-comment cmt"># being moved eventually since we're starting from top'</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">inDestinationRootDir?</span>(<span class="ruby-identifier">item</span>)
+        <span class="ruby-constant">FiRe</span><span class="ruby-operator">::</span><span class="ruby-identifier">filesys</span>.<span class="ruby-identifier">mv</span>(<span class="ruby-identifier">item</span>, <span class="ruby-identifier">newBackup</span>)  
+        <span class="ruby-constant">FiRe</span><span class="ruby-operator">::</span><span class="ruby-identifier">filesys</span>.<span class="ruby-identifier">prune</span>
+      <span class="ruby-keyword kw">end</span>
+
+    }
+
+    <span class="ruby-identifier">deleteBackupsThatIsTooOld</span>
+
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

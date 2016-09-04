@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>execute (ReplaceOldOrSmallerFiles)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/workers/replace_old_or_smaller_files.rb, line 24</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">execute</span>
+
+    <span class="ruby-comment cmt"># traverse all srcfiles</span>
+    <span class="ruby-constant">FiRe</span><span class="ruby-operator">::</span><span class="ruby-identifier">filesys</span>.<span class="ruby-identifier">find</span>(<span class="ruby-ivar">@source</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">srcItem</span><span class="ruby-operator">|</span>
+      
+      <span class="ruby-comment cmt"># skip this subtree if it matches ignored-items</span>
+      <span class="ruby-constant">FiRe</span><span class="ruby-operator">::</span><span class="ruby-identifier">filesys</span>.<span class="ruby-identifier">prune</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ignore?</span>(<span class="ruby-identifier">srcItem</span>) 
+    
+      <span class="ruby-comment cmt"># transform srcpath to destpath</span>
+      <span class="ruby-identifier">destItem</span> = <span class="ruby-identifier">srcItem</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-ivar">@source</span>, <span class="ruby-ivar">@destination</span>)
+
+      <span class="ruby-comment cmt"># do not copy if item already exists and looks OK</span>
+      <span class="ruby-identifier">copyItem</span>(<span class="ruby-identifier">srcItem</span>, <span class="ruby-identifier">destItem</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">needCopy</span>(<span class="ruby-identifier">destItem</span>,<span class="ruby-identifier">srcItem</span>)
+
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>
