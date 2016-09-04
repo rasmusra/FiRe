@@ -1,8 +1,15 @@
-FILE REPLICATOR
+FiRe - File Replicator
+======================
 This program aids in keeping various data-libs up-to-date or just keeping
 backups. But beware that this program copies files, so use it at your own risk.
 
-HOW-TO-RUN:
+INSTALL & TEST
+In source root, execute:
+1. gem install Bundler
+2. bundle install
+3. ruby  test/ts_fire.rb
+
+HOW TO RUN
 You need to call "ruby lib/fire.rb -config mycfg.yml" with your own config-file as 
 input argument. Proceed as follows:
  
