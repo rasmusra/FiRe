@@ -1,8 +1,9 @@
 require_relative 'utils'
-require 'test/unit'
+require_relative 'full_test'
+require 'minitest/autorun'
+require 'FileUtils'
 
-
-class TestCleanupOldFiles < Test::Unit::TestCase
+class TestCleanupOldFiles < FullTest
   
   def setup
 
@@ -20,13 +21,13 @@ class TestCleanupOldFiles < Test::Unit::TestCase
     
   end
   
-  def test_shouldExecuteWithoutFailure
+  def test_execute
     Utils.runFiRe(@cfg)
   end
   
   
-  def test_shouldMoveOldFileToTrashfolder
-    
+  def test_moving_old_file_to_trash_folder
+
     # setup destdir with a small textfile that's not existing in srcdir
     oldfile = File.expand_path("#{@destination}/sub/oldfile.txt")
     expectedTrashedFile = File.expand_path("test/data/dest/trashed/sub/oldfile.txt")
@@ -37,10 +38,8 @@ class TestCleanupOldFiles < Test::Unit::TestCase
     
     # verify
     assert(!File.exist?(oldfile), "file #{oldfile} was not removed")
-    assert(File.exist?(expectedTrashedFile), "file #{oldfile} was not removed")
-    
+    assert(File.exist?(expectedTrashedFile), "file #{expectedTrashedFile} was not trashed")
   end
-
 
 end
 

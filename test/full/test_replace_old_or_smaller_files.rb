@@ -1,10 +1,11 @@
-require 'test/unit'
+require 'minitest/autorun'
 require_relative '../../lib/helpers/resource_locator'
 require_relative '../../lib/workers/replace_old_or_smaller_files'
 require_relative '../fakes/filesys_with_counters'
 require_relative 'utils'
+require_relative 'full_test'
 
-class TestReplaceOldOrSmallerFiles < Test::Unit::TestCase
+class TestReplaceOldOrSmallerFiles < FullTest
   
   def setup
     
@@ -26,13 +27,13 @@ class TestReplaceOldOrSmallerFiles < Test::Unit::TestCase
     @cfg = { "jobs" => [ @replaceOldOrSmaller ] }
   end
   
-  def test_shouldExecuteWithoutFailure
+  def test_execute
     Utils.runFiRe(@cfg)
   end
   
   
-  def test_shouldCopyNewFile
-    
+  def test_copy_new_file
+
     # setup srcdir with a file that's not existing in destdir
     srcfile = Utils.fullSrcName(@cfg, "sub/newfile.txt")
     Utils.setupFile(srcfile)
@@ -48,8 +49,8 @@ class TestReplaceOldOrSmallerFiles < Test::Unit::TestCase
   end
   
   
-  def test_shouldCopyFileWhenBackupExistsWithOlderDate
-    
+  def test_copy_file_when_backup_exists_with_older_date
+
     # setup srcdir and destdir with samefile 
     srcfile = Utils.fullSrcName(@cfg, "sub/newfile.txt")
     backupfile = Utils.src2dest(@cfg, srcfile)
@@ -68,14 +69,14 @@ class TestReplaceOldOrSmallerFiles < Test::Unit::TestCase
   end
   
   
-  def test_shouldCopyAllFilesFromSrcDirToDestDir
+  def test_copy_all
     setupBigSrcStructure(@cfg)
     Utils.runFiRe(@cfg)
     assert(allFilesFound?(), "all files was not found in destdir.")
   end
   
   
-  def test_shouldNotCopyFileWhenSameModifiedDate
+  def test_not_to_copy_file_when_same_modified_date
     
     # use fake filesystem that counts filesystem-calls
     ResourceLocator.setFilesystem(FilesysWithCounters.new)
@@ -98,7 +99,7 @@ class TestReplaceOldOrSmallerFiles < Test::Unit::TestCase
   end
   
   
-  def test_shouldNotCopyFilesInIgnoreList
+  def test_not_to_copy_files_in_ignore_list
     
     # use fake filesystem that counts filesystem-calls
     ResourceLocator.setFilesystem(FilesysWithCounters.new)

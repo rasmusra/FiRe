@@ -1,8 +1,9 @@
-require 'test/unit'
+require 'minitest/autorun'
 require_relative "../../lib/helpers/resource_locator"
 require_relative "../../lib/workers/worker_factory"
+require_relative 'unit_test'
 
-class TestWorkerFactory < Test::Unit::TestCase
+class TestWorkerFactory < UnitTest
 
 
 

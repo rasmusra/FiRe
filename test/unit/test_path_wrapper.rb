@@ -1,7 +1,8 @@
 require_relative "../../lib/helpers/path_wrapper"
-require 'test/unit'
+require_relative 'unit_test'
+require 'minitest/autorun'
 
-class TestPathWrapper < Test::Unit::TestCase
+class TestPathWrapper < UnitTest
 
 	def test_raiseErrorOnUncAddress
   

@@ -1,7 +1,8 @@
-require_relative "../../lib/helpers/filesys_win"
-require 'test/unit'
+require_relative '../../lib/helpers/filesys_win'
+require_relative 'unit_test'
+require 'minitest/autorun'
 
-class TestFilesysWin < Test::Unit::TestCase
+class TestFilesysWin < UnitTest
 
 	def test_root_directory_on_windows
 	  target = FilesysWin.new

@@ -1,9 +1,0 @@
-require_relative "../../lib/extensions/string"
-require 'test/unit'
-
-class TestString < Test::Unit::TestCase
-
-	def test_camelizeSnakeCase
-		assert_equal("HelloWorld", "hello_world".camelize!)
-	end
-end

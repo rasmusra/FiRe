@@ -68,7 +68,7 @@ class Utils
 
   def Utils.createConfig(worker, params)
     # use brute force for converting paths to windows
-    if RUBY_PLATFORM =~ /mswin/
+    if Gem.win_platform?
       params.merge!(params.each_value { |v| v.gsub!("/","\\") })
     end
   

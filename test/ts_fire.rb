@@ -9,7 +9,7 @@ Find.find(File.expand_path("test")) do |item|
   filename = File.basename(item)
   
   # skip this one if not matching "tc_.*.rb"
-  next if !filename.match(/#{"^tc_.*\.rb$"}/)
+  next if !filename.match(/#{"^test_.*\.rb$"}/)
   
   # parse out the relative lib from full path
   filePath = File.expand_path(File.dirname(__FILE__))

@@ -1,9 +1,10 @@
 require_relative "../../lib/workers/replace_old_or_smaller_files"
 require_relative "../fakes/fake_file_system"
-require "test/unit"
+require_relative 'unit_test'
+require 'minitest/autorun'
 
 
-class TestWorkers < Test::Unit::TestCase
+class TestWorkers < UnitTest
   
   def setupWorker(src,dest)
     

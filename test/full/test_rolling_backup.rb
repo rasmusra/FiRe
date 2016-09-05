@@ -2,7 +2,8 @@ require_relative '../../lib/workers/rolling_backup'
 require_relative '../../lib/helpers/resource_locator'
 require_relative '../fakes/filesys_with_counters'
 require_relative 'utils'
-require 'test/unit'
+require_relative 'full_test'
+require 'minitest/autorun'
 
 
 # The Rolling-Backup worker moves given destination to a backup-
@@ -10,7 +11,7 @@ require 'test/unit'
 # states how many backups will be kept before overwriting the oldest.
 # Please note that this worker does not copy anything, only moves backup-dir
 # to an archive-folder. The archive is named "rolling backup yyyy-mm-dd HHMMSS".
-class TestRollingBackup < Test::Unit::TestCase
+class TestRollingBackup < FullTest
   
   def setup
     
@@ -37,17 +38,17 @@ class TestRollingBackup < Test::Unit::TestCase
     Utils.setupFile(destfile)
   end
   
-  def test_shouldExecuteWithoutFailure
+  def test_execute
     Utils.runFiRe(@cfg)
   end
   
-  def test_shouldNotKeepAnyStuffInDestDirExceptBackupDirs
+  def test_no_stuff_in_destination_directory_except_backup
     setupWithOneFile
     Utils.runFiRe(@cfg)
     Find.find(@destination) { |item| assertBackupDirMatch(item) }
   end
   
-  def test_shouldMoveDestStructureToRollingBackup
+  def test_move_destination_structure_to_rolling_backup
   
     setupWithOneFile
     destfile = Utils.fullDestName(@cfg, "#{@backupDirFlag} 2008-07-13 213412/file.txt")
@@ -59,7 +60,7 @@ class TestRollingBackup < Test::Unit::TestCase
 
   end
   
-  def test_shouldCreateNewRollingBackup
+  def test_create_new_rolling_backup
     
     setupWithOneFile
     destfile = Utils.fullDestName(@cfg, "#{@backupDirFlag} 2008-07-13 213412/file.txt")
@@ -74,7 +75,7 @@ class TestRollingBackup < Test::Unit::TestCase
 
   end
   
-  def test_shouldReplaceOldestRollingBackup
+  def test_replace_oldest_rolling_backup
     
     # setup with full set of backups
     setupWithOneFile
@@ -99,7 +100,7 @@ class TestRollingBackup < Test::Unit::TestCase
   end
 
     
-  def test_shouldOnlyCountTopmostRollingBackup
+  def test_only_count_topmost_rolling_backup
     
     # use fake filesystem that counts filesystem-calls
     ResourceLocator.setFilesystem(FilesysWithCounters.new)

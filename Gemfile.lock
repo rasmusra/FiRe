@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     log4r (1.1.10)
+    minitest (5.9.0)
     optiflag (0.7)
     rake (11.2.2)
 
@@ -11,6 +12,7 @@ PLATFORMS
 
 DEPENDENCIES
   log4r
+  minitest
   optiflag
   rake
 
