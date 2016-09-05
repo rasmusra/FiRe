@@ -5,8 +5,6 @@ require_relative 'unit_test'
 
 class TestWorkerFactory < UnitTest
 
-
-
   def findWorkers
     workers = []
     
@@ -24,7 +22,7 @@ class TestWorkerFactory < UnitTest
     workers
   end
   
-  def test_respondsToExecute
+  def test_to_execute_workers
     
     # get all worker-classes 
     workers = findWorkers

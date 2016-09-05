@@ -1,5 +1,5 @@
 require 'Find'
-require 'FileUtils'
+require 'fileutils'
 require_relative 'path_wrapper'
 
 # proxy to IO-operations

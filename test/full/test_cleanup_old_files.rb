@@ -1,7 +1,7 @@
 require_relative 'utils'
 require_relative 'full_test'
 require 'minitest/autorun'
-require 'FileUtils'
+require 'fileutils'
 
 class TestCleanupOldFiles < FullTest
   

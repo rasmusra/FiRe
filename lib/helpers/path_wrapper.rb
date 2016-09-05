@@ -1,5 +1,5 @@
 require 'Find'
-require 'FileUtils'
+require 'fileutils'
 
 
 # the need for this wrapper comes from the different pathseparators on different os

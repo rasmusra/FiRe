@@ -25,10 +25,10 @@ class TestWorkers < UnitTest
   end
   
   
-  def test_shouldNotCopyExistingItem
+  def test_not_to_copy_existing_item
     
     # setup with one file already in destdir
-	setupWorker("test/data/src", "test/data/dest")
+  	setupWorker("test/data/src", "test/data/dest")
     setupSrcStructure
     existingItem = "subdir1/file4.txt"
     FiRe::filesys.addSrc("#{@source}/#{existingItem}") 

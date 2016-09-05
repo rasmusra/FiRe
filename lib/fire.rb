@@ -35,7 +35,6 @@ def main
   
     ResourceLocator.setLog(Logger["log"])
     FiRe::log.info "Starting up!"
-  puts File.open(ARGV.flags.config.to_s).size
     configdata = YAML.load(File.open(ARGV.flags.config.to_s)) 
     
     configdata["jobs"].each { |w| 
