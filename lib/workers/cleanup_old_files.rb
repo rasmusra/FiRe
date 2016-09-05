@@ -1,5 +1,5 @@
-require 'lib/helpers/path_wrapper'
-require 'lib/helpers/resource_locator'
+require_relative '../helpers/path_wrapper'
+require_relative '../helpers/resource_locator'
 include FiRe
 
 

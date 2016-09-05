@@ -1,8 +1,8 @@
-require 'lib/workers/rolling_backup'
-require 'lib/helpers/resource_locator'
-require 'test/fakes/filesys_with_counters'
+require_relative '../../lib/workers/rolling_backup'
+require_relative '../../lib/helpers/resource_locator'
+require_relative '../fakes/filesys_with_counters'
+require_relative 'utils'
 require 'test/unit'
-require 'test/full/utils'
 
 
 # The Rolling-Backup worker moves given destination to a backup-

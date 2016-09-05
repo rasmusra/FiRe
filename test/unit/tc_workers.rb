@@ -1,5 +1,5 @@
-require "lib/workers/replace_old_or_smaller_files"
-require "test/fakes/fake_file_system"
+require_relative "../../lib/workers/replace_old_or_smaller_files"
+require_relative "../fakes/fake_file_system"
 require "test/unit"
 
 

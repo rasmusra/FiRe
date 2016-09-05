@@ -1,15 +1,15 @@
 require 'rubygems'
 require 'optiflag'
-require 'lib/helpers/filesys_proxy'
-require 'lib/helpers/resource_locator'
-require 'lib/workers/worker_factory'
+require_relative 'helpers/filesys_proxy'
+require_relative 'helpers/resource_locator'
+require_relative 'workers/worker_factory'
 require 'log4r/yamlconfigurator'
 require 'log4r/outputter/datefileoutputter'
 include Log4r
 include FiRe
 
 
-# load the YAML file with this
+# setup log4r
 cfg = YamlConfigurator 
 cfg['HOME'] = '.'
 FileUtils.mkpath 'logs'
@@ -35,7 +35,7 @@ def main
   
     ResourceLocator.setLog(Logger["log"])
     FiRe::log.info "Starting up!"
-  
+  puts File.open(ARGV.flags.config.to_s).size
     configdata = YAML.load(File.open(ARGV.flags.config.to_s)) 
     
     configdata["jobs"].each { |w| 

@@ -1,5 +1,5 @@
-require 'lib/helpers/filesys_proxy'
-require 'lib/helpers/filesys_win'
+require_relative 'filesys_proxy'
+require_relative 'filesys_win'
 require 'log4r'
 
 

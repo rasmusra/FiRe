@@ -1,11 +1,11 @@
+require_relative 'utils'
 require 'test/unit'
-require 'test/full/utils'
 
 
 class TestCleanupOldFiles < Test::Unit::TestCase
   
   def setup
-    
+
     # remove any old stuff and setup new clean structure
     Utils.setupDirs
      

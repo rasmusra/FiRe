@@ -1,8 +1,8 @@
-require 'lib/helpers/resource_locator'
-require 'lib/workers/replace_old_or_smaller_files'
 require 'test/unit'
-require 'test/fakes/filesys_with_counters'
-require 'test/full/utils'
+require_relative '../../lib/helpers/resource_locator'
+require_relative '../../lib/workers/replace_old_or_smaller_files'
+require_relative '../fakes/filesys_with_counters'
+require_relative 'utils'
 
 class TestReplaceOldOrSmallerFiles < Test::Unit::TestCase
   

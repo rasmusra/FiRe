@@ -1,0 +1,19 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    log4r (1.1.10)
+    optiflag (0.7)
+
+PLATFORMS
+  x64-mingw32
+  x86-mingw32
+
+DEPENDENCIES
+  log4r
+  optiflag
+
+RUBY VERSION
+   ruby 1.8.7p374
+
+BUNDLED WITH
+   1.12.5

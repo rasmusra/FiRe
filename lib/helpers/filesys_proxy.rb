@@ -1,6 +1,6 @@
 require 'Find'
 require 'FileUtils'
-require 'lib/helpers/path_wrapper'
+require_relative 'path_wrapper'
 
 # proxy to IO-operations
 class FilesysProxy

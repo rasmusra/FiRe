@@ -1,4 +1,4 @@
-require "lib/helpers/path_wrapper"
+require_relative "../../lib/helpers/path_wrapper"
 require 'test/unit'
 
 class TestPathWrapper < Test::Unit::TestCase

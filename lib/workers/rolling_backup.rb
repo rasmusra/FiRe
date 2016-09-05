@@ -1,5 +1,5 @@
-require 'lib/helpers/resource_locator'
-require 'lib/workers/general_worker'
+require_relative '../helpers/resource_locator'
+require_relative 'general_worker'
 include FiRe
 
 

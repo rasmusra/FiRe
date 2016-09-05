@@ -1,4 +1,4 @@
-require 'lib/helpers/resource_locator'
+require_relative '../helpers/resource_locator'
 include FiRe
 
 module GeneralWorker

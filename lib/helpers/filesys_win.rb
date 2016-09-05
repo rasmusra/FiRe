@@ -1,4 +1,4 @@
-require 'lib/helpers/filesys_proxy'
+require_relative 'filesys_proxy'
 
 # handles the windows-platforms way of separating dirs in paths
 class FilesysWin < FilesysProxy

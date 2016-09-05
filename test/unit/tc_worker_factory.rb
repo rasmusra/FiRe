@@ -1,6 +1,6 @@
-require 'lib/helpers/resource_locator'
-require 'lib/workers/worker_factory'
 require 'test/unit'
+require_relative "../../lib/helpers/resource_locator"
+require_relative "../../lib/workers/worker_factory"
 
 class TestWorkerFactory < Test::Unit::TestCase
 
@@ -30,7 +30,7 @@ class TestWorkerFactory < Test::Unit::TestCase
     
     # create them, should not fail
     workers.collect! { |w| WorkerFactory.create({"worker"=>w, "parameters"=>{ "source"=>"","destination"=>""}}) }
-    
+ 
     # check they implement execute
     workers.each { |w| 
       assert(w.respond_to?("execute"), "Worker #{w} does not respond to execute") 

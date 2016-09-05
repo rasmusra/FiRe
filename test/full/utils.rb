@@ -1,4 +1,5 @@
 require 'FileUtils'
+require 'yaml'
 
 class Utils
  
@@ -20,7 +21,7 @@ class Utils
     end
     
     # run program
-    require 'lib/fire.rb'
+    require_relative '../../lib/fire.rb'
     main
     
   end

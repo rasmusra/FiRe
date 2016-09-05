@@ -11,11 +11,12 @@ Find.find(File.expand_path("test")) do |item|
   # skip this one if not matching "tc_.*.rb"
   next if !filename.match(/#{"^tc_.*\.rb$"}/)
   
-  # parse out the lib from full path
-  libpath = File.dirname(item).sub("#{FileUtils.pwd}/","")
+  # parse out the relative lib from full path
+  filePath = File.expand_path(File.dirname(__FILE__))
+  relativeLibPath = File.dirname(item).sub("#{filePath}/","")
   testfile = filename.sub(/\.rb$/,"")
   
   # run the tests therein
-  require File.join(libpath,testfile) 
+  require_relative File.join(relativeLibPath,testfile) 
   
 end

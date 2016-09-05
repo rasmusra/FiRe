@@ -1,13 +1,12 @@
-require 'lib/helpers/filesys_win'
+require_relative "../../lib/helpers/filesys_win"
 require 'test/unit'
 
-if RUBY_PLATFORM =~ /mswin/
-  class TestFilesysWin < Test::Unit::TestCase
-    
-    def test_shouldGetCorrectDirname
-      target = FilesysWin.new
-      assert_equal("H:/",target.dirname("H:"))
-      assert_equal("H:/",target.dirname("H:\\"))
-    end
-  end  
-end
+class TestFilesysWin < Test::Unit::TestCase
+
+	def test_root_directory_on_windows
+	  target = FilesysWin.new
+	  assert "H:/" == target.dirname("H:")
+	  assert "H:/" == target.dirname("H:\\")
+	end
+
+end  
