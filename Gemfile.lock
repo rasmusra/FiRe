@@ -3,6 +3,7 @@ GEM
   specs:
     log4r (1.1.10)
     optiflag (0.7)
+    rake (11.2.2)
 
 PLATFORMS
   x64-mingw32
@@ -11,6 +12,7 @@ PLATFORMS
 DEPENDENCIES
   log4r
   optiflag
+  rake
 
 RUBY VERSION
    ruby 1.8.7p374
