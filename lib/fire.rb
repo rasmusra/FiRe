@@ -1,8 +1,8 @@
 require 'rubygems'
 require 'optiflag'
 require 'lib/helpers/filesys_proxy'
-require 'lib/helpers/worker_factory'
 require 'lib/helpers/resource_locator'
+require 'lib/workers/worker_factory'
 require 'log4r/yamlconfigurator'
 require 'log4r/outputter/datefileoutputter'
 include Log4r

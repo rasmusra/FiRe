@@ -1,6 +1,7 @@
-DONE:
+DOING
 
-DOING:
+DONE:
+- Bug: Fix support for windows absolute paths
 
 TODO:
 - give list of wildcards for what filetypes should be copied

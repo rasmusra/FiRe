@@ -63,7 +63,7 @@ class ResourceLocator
 private
 
   def ResourceLocator.createFilesys
-    if RUBY_PLATFORM =~ /mswin/
+    if Gem.win_platform?
       FilesysWin.new
     else
       FilesysProxy.new

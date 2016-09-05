@@ -1,5 +1,5 @@
 require 'lib/helpers/resource_locator'
-require 'lib/helpers/worker_factory'
+require 'lib/workers/worker_factory'
 require 'test/unit'
 
 class TestWorkerFactory < Test::Unit::TestCase
@@ -12,7 +12,7 @@ class TestWorkerFactory < Test::Unit::TestCase
     Find.find("lib/workers") { |i|
     
       # do not generate any if not a ruby-classfile
-      next if !i.match(/\.rb$/) || i.match(/general_worker.rb$/) 
+      next if !i.match(/\.rb$/) || i.match(/general_worker.rb$/) || i.match(/worker_factory.rb$/) 
       
       # transform the filenames, like foo_bar.rb, to worker-names, like FOO_BAR
       filename = File.basename(i)

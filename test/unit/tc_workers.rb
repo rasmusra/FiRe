@@ -5,7 +5,7 @@ require "test/unit"
 
 class TestWorkers < Test::Unit::TestCase
   
-  def setup
+  def setupWorker(src,dest)
     
     # do not touch the filesystem, uh...
     ResourceLocator.setFilesystem(FakeFileSystem.new)
@@ -27,6 +27,7 @@ class TestWorkers < Test::Unit::TestCase
   def test_shouldNotCopyExistingItem
     
     # setup with one file already in destdir
+	setupWorker("test/data/src", "test/data/dest")
     setupSrcStructure
     existingItem = "subdir1/file4.txt"
     FiRe::filesys.addSrc("#{@source}/#{existingItem}") 
@@ -35,7 +36,7 @@ class TestWorkers < Test::Unit::TestCase
     # run
     @target.execute
    
-    # verify by checking what has been copied, should not fail
+    # verify by checking what has been copied
     FiRe::filesys.copiedStructure.each { |copiedItem| 
       assert(!copiedItem.match(existingItem))
     }
@@ -46,6 +47,7 @@ class TestWorkers < Test::Unit::TestCase
   def test_shouldNotTryToRemoveTrashfolder
     
     # setup with trashdir in dest
+	setupWorker("test/data/src", "test/data/dest")
     trashDir = "#{@destination}/trashed"
     FiRe::filesys.addDest(trashDir) 
     
@@ -61,6 +63,7 @@ class TestWorkers < Test::Unit::TestCase
   def test_shouldCopySrcFilesToDestDirAlsoWhenExistingHavingSmallerSize
     
     # setup with one file already in destdir
+	setupWorker("test/data/src", "test/data/dest")
     setupSrcStructure
     FiRe::filesys.addSrc("#{@source}/subdir1/file5.txt") 
     FiRe::filesys.addDestWithSmallSize("#{@destination}/subdir1/file5.txt") 
@@ -68,10 +71,28 @@ class TestWorkers < Test::Unit::TestCase
     # run
     @target.execute
     
-    # verify by checking what has been copied, should not fail
+    # verify by checking what has been copied
     FiRe::filesys.srcDirStructure.each { |srcItem|
       destItem = srcItem.sub(@source,@destination)
       assert(FiRe::filesys.copiedStructure.include?(destItem), "missing srcitem in dest-structure")
+    }
+    
+  end
+  
+  
+  def test_shouldFindWindowsAbsoultePath
+    
+    # setup with one file already in destdir
+	setupWorker("C:", "D:\Salming")
+    setupSrcStructure
+    
+    # run
+    @target.execute
+    
+    # verify 
+    FiRe::filesys.srcDirStructure.each { |srcItem|
+      destItem = srcItem.sub(@source,@destination)
+      assert(FiRe::filesys.copiedStructure.include?(destItem), "missing srcitem #{srcItem} in dest-structure")
     }
     
   end

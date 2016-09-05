@@ -8,9 +8,10 @@ class PathWrapper < String
   def initialize(path)
 
     # UNC's not allowed
-    if RUBY_PLATFORM =~ /mswin/ && path.match(/^\\\\/)  
+    if path.match(/^\\\\/)  
       raise ArgumentException, "UNC paths [#{path}] not supported"
     end
+    
 
     # turn backslashes to slashes
     path.gsub!(/\\/,"/") if path.match(/\\/)
