@@ -23,7 +23,9 @@ class ReplaceOldOrSmallerFiles
   # copies all files found in srcdir to all the destdirs but only if dest is not uptodate
   def execute
 
-    counter = 0
+    copiedCounter = 0
+    failedCounter = 0
+    skippedCounter = 0
     
     # traverse all srcfiles
     FiRe::filesys.find(@source) { |srcItem|
@@ -39,14 +41,17 @@ class ReplaceOldOrSmallerFiles
 
       # do not copy if item already exists and looks OK
       if needCopy(destItem,srcItem)
-        copyItem(srcItem, destItem) 
-        counter = counter + 1
+        copyWentWell = copyItem(srcItem, destItem)
+        copiedCounter += 1 if copyWentWell
+        failedCounter += 1 if !copyWentWell
+      else
+        skippedCounter += 1 
       end
       
     }
     
     # give some feedback
-    FiRe::log.info "copied #{counter} items!"
+    FiRe::log.info "copied #{copiedCounter} items, while #{failedCounter} items failed. #{skippedCounter} items did not need to be copied today."
 
   end
 
@@ -54,6 +59,7 @@ private
 
   # handles copying of given srcItem
   def copyItem(srcItem,destItem)
+    copyWentWell = false # not yet...
 
     begin
 
@@ -66,9 +72,13 @@ private
         FiRe::filesys.cp(srcItem, destItem)
       end
 
+      copyWentWell = true
+
     rescue StandardError => e
       FiRe::log.error e
     end
+
+    copyWentWell
 
   end
 
